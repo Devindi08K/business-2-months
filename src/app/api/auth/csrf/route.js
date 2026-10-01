@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { ensureCsrfToken } from "@/lib/csrf";
 import { getSession } from "@/lib/auth";
 import { jsonOk, handleApiError } from "@/lib/api";

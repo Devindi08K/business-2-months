@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import connectDB from "@/lib/db";
 import Booking from "@/models/Booking";
 import { requireAuth } from "@/lib/auth";

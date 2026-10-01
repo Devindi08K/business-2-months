@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { ToastProvider } from "@/components/ui/Toast";
 
 export const metadata = {

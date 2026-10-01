@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import connectDB from "@/lib/db";
 import GalleryImage from "@/models/GalleryImage";
 import { requireAuth } from "@/lib/auth";

@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import connectDB from "@/lib/db";
 import Testimonial from "@/models/Testimonial";
 import { requireAuth } from "@/lib/auth";

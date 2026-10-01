@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { requireAuth } from "@/lib/auth";
 import { validateCsrf } from "@/lib/csrf";
 import { uploadImageBuffer, ALLOWED_MIME, MAX_BYTES } from "@/lib/cloudinary";

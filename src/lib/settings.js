@@ -6,12 +6,17 @@ import siteConfig from "../../site.config";
  * Merge site.config.js defaults with MongoDB overrides.
  */
 export async function getSiteSettings() {
-  await connectDB();
-  let doc = await SiteSettings.findOne({ key: "main" }).lean();
-  if (!doc) {
+  try {
+    await connectDB();
+    let doc = await SiteSettings.findOne({ key: "main" }).lean();
+    if (!doc) {
+      return buildFromConfig();
+    }
+    return mergeSettings(doc);
+  } catch (err) {
+    console.warn("[settings] Fallback to siteConfig defaults:", err?.message);
     return buildFromConfig();
   }
-  return mergeSettings(doc);
 }
 
 export function buildFromConfig() {

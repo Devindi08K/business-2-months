@@ -11,10 +11,15 @@ export default async function BlogIndexPage() {
   const settings = await getSiteSettings();
   if (!settings.features?.blog) notFound();
 
-  await connectDB();
-  const posts = await BlogPost.find({ published: true })
-    .sort({ publishedAt: -1 })
-    .lean();
+  let posts = [];
+  try {
+    await connectDB();
+    posts = await BlogPost.find({ published: true })
+      .sort({ publishedAt: -1 })
+      .lean();
+  } catch (err) {
+    console.warn("[blog] DB load error:", err?.message);
+  }
 
   return (
     <main className="mx-auto max-w-4xl px-4 pb-20 pt-32 md:px-6">

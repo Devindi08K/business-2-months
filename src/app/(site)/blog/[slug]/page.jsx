@@ -5,24 +5,33 @@ import { getSiteSettings } from "@/lib/settings";
 import { notFound } from "next/navigation";
 
 export async function generateMetadata({ params }) {
-  await connectDB();
-  const post = await BlogPost.findOne({ slug: params.slug, published: true }).lean();
-  if (!post) return { title: "Post" };
-  return {
-    title: post.title,
-    description: post.excerpt,
-  };
+  try {
+    await connectDB();
+    const post = await BlogPost.findOne({ slug: params.slug, published: true }).lean();
+    if (!post) return { title: "Post" };
+    return {
+      title: post.title,
+      description: post.excerpt,
+    };
+  } catch {
+    return { title: "Post" };
+  }
 }
 
 export default async function BlogPostPage({ params }) {
   const settings = await getSiteSettings();
   if (!settings.features?.blog) notFound();
 
-  await connectDB();
-  const post = await BlogPost.findOne({
-    slug: params.slug,
-    published: true,
-  }).lean();
+  let post = null;
+  try {
+    await connectDB();
+    post = await BlogPost.findOne({
+      slug: params.slug,
+      published: true,
+    }).lean();
+  } catch (err) {
+    console.warn("[blog/slug] DB load error:", err?.message);
+  }
   if (!post) notFound();
 
   return (

@@ -5,10 +5,15 @@ import GalleryImage from "@/models/GalleryImage";
 export const metadata = { title: "Gallery" };
 
 export default async function GalleryPage() {
-  await connectDB();
-  const images = await GalleryImage.find({ isActive: true })
-    .sort({ order: 1 })
-    .lean();
+  let images = [];
+  try {
+    await connectDB();
+    images = await GalleryImage.find({ isActive: true })
+      .sort({ order: 1 })
+      .lean();
+  } catch (err) {
+    console.warn("[gallery] DB load error:", err?.message);
+  }
 
   return (
     <main className="mx-auto max-w-6xl px-4 pb-20 pt-32 md:px-6">

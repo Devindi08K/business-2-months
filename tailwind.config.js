@@ -8,8 +8,17 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        primary: "var(--color-primary)",
+        "primary-dark": "var(--color-primary-dark)",
+        secondary: "var(--color-secondary)",
+        accent: "var(--color-accent)",
+        background: "var(--color-background)",
+        foreground: "var(--color-foreground)",
+        muted: "var(--color-muted)",
+      },
+      fontFamily: {
+        heading: ["var(--font-heading)"],
+        body: ["var(--font-body)"],
       },
     },
   },
